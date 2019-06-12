@@ -1,16 +1,16 @@
 package com.charles.crazyguy;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.charles.crazyguy.activities.BaseActivity;
+import com.charles.crazyguy.menu.MenuPresenter;
 
-public class CrazyGuyActivity extends AppCompatActivity{
+public class CrazyGuyActivity extends BaseActivity {
+    private MenuPresenter mMenuPresenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -18,6 +18,10 @@ public class CrazyGuyActivity extends AppCompatActivity{
     }
 
     private void initPresenters(){
-
+        if(mMenuPresenter == null) {
+            mMenuPresenter = new MenuPresenter(this);
+        }
+        mMenuPresenter.showView((RecyclerView)findViewById(R.id.menu_recycler_view));
+        mMenuPresenter.loadData();
     }
 }
