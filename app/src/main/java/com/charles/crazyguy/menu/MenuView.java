@@ -85,7 +85,7 @@ class MenuView<P extends MenuContract.IPresenter> implements MenuContract.IView 
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemContentView = LayoutInflater.from(mContext).inflate(R.layout.menu_item, null);
+            View itemContentView = LayoutInflater.from(mContext).inflate(R.layout.menu_item, parent, false);
             ViewHolder viewHolder = new ViewHolder(itemContentView);
             viewHolder.textView = (TextView) itemContentView.findViewById(R.id.menu_item);
             return viewHolder;
