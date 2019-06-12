@@ -3,6 +3,7 @@
     package="com.charles.crazyguy">
 
     <application
+        android:name=".CrazyGuyApplication"
         android:allowBackup="true"
         android:icon="@drawable/crazy_boy_icon"
         android:label="@string/app_name"
