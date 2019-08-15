@@ -10,4 +10,10 @@ public class Action {
     public static final String ACTION_VIEW_ACTIVITY_MODE = "action_view_activity_mode";
     /**查看IntentService*/
     public static final String ACTION_VIEW_INTENT_SERVICE = "action_view_intent_service";
+    /**查看canvas用法*/
+    public static final String ACTION_VIEW_CANVAS = "action_view_canvas";
+    /**查看Surface用法*/
+    public static final String ACTION_VIEW_SURFACE = "action_view_surface";
+    /**查看自定义渐变*/
+    public static final String ACTION_VIEW_CUSTOM_GRADIENT = "action_view_custom_gradient";
 }

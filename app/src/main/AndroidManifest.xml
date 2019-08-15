@@ -17,6 +17,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.DragBarActivity">
+            <intent-filter>
+                <action android:name="com.charles.action.canvas" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.SurfaceDemoActivity">
+            <intent-filter>
+                <action android:name="com.charles.action.surface" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.CustomGradientActivity"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="com.charles.action.custom.gradient" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

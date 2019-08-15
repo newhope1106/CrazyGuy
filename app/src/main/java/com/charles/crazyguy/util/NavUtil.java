@@ -1,6 +1,8 @@
 package com.charles.crazyguy.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
 import com.charles.crazyguy.common.Action;
 
@@ -25,10 +27,32 @@ public class NavUtil {
                         "Say Hi!", "May god bless you!", R.drawable.round_crazy_boy_icon);
                 break;
             }
+            case Action.ACTION_VIEW_CANVAS:{
+                Intent intent = new Intent("com.charles.action.canvas");
+                startActivity(intent);
+                break;
+            }
+            case Action.ACTION_VIEW_SURFACE:{
+                Intent intent = new Intent("com.charles.action.surface");
+                startActivity(intent);
+                break;
+            }
+            case Action.ACTION_VIEW_CUSTOM_GRADIENT: {
+                Intent intent = new Intent("com.charles.action.custom.gradient");
+                startActivity(intent);
+                break;
+            }
         }
     }
 
-    public static void doIntent() {
+    public static void startActivity(Intent intent) {
+        if(!(sContext instanceof Activity)) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        sContext.startActivity(intent);
+    }
+
+    public static void doIntent(Intent intent) {
 
     }
 }

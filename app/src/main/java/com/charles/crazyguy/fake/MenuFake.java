@@ -27,6 +27,21 @@ public class MenuFake {
         menuItem.action = Action.ACTION_VIEW_INTENT_SERVICE;
         menuItems.add(menuItem);
 
+        menuItem = new MenuItem();
+        menuItem.title = "绘制图形";
+        menuItem.action = Action.ACTION_VIEW_CANVAS;
+        menuItems.add(menuItem);
+
+        menuItem = new MenuItem();
+        menuItem.title = "Surface Demo";
+        menuItem.action = Action.ACTION_VIEW_CANVAS;
+        menuItems.add(menuItem);
+
+        menuItem = new MenuItem();
+        menuItem.title = "自定义渐变";
+        menuItem.action = Action.ACTION_VIEW_CUSTOM_GRADIENT;
+        menuItems.add(menuItem);
+
         return menuItems;
     }
 }
