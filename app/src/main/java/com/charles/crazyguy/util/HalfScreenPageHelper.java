@@ -143,7 +143,7 @@ public class HalfScreenPageHelper {
             int originHeight = contentView.getHeight();
             contentView.getLayoutParams().width = fullWidth;
             contentView.setPadding(extensionPaddingLeft + originPaddingLeft,
-                    contentView.getPaddingTop(), contentView.getRight(), contentView.getPaddingBottom());
+                    contentView.getPaddingTop(), contentView.getPaddingRight(), contentView.getPaddingBottom());
             CustomLinearGradientDrawable drawable = new CustomLinearGradientDrawable();
             drawable.setGradientOrientation(CustomLinearGradientDrawable.ORIENTATION_HORIZONTAL);
             contentView.setBackground(drawable);
@@ -171,8 +171,8 @@ public class HalfScreenPageHelper {
             int originWidth = contentView.getWidth();
             int originHeight = height;
             contentView.getLayoutParams().height = fullHeight;
-            contentView.setPadding(originPaddingTop + extensionPaddingTop,
-                    contentView.getPaddingTop(), contentView.getRight(), contentView.getPaddingBottom());
+            contentView.setPadding(contentView.getPaddingLeft(),
+                    originPaddingTop + extensionPaddingTop, contentView.getPaddingRight(), contentView.getPaddingBottom());
             CustomLinearGradientDrawable drawable = new CustomLinearGradientDrawable();
             drawable.setGradientOrientation(CustomLinearGradientDrawable.ORIENTATION_VERTICAL);
             contentView.setBackground(drawable);
