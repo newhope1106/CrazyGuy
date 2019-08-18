@@ -2,22 +2,28 @@ package com.charles.crazyguy.activities;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.charles.crazyguy.R;
 
+import com.charles.crazyguy.adapter.VideoListAdapter;
+import com.charles.crazyguy.dto.VideoItem;
 import com.charles.crazyguy.widget.VideoView;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayVideoActivity extends BaseActivity {
     // Used to load the 'native-lib' library on application startup.
@@ -41,6 +47,8 @@ public class PlayVideoActivity extends BaseActivity {
     private static int REQUEST_PERMISSION_CODE = 1;
 
     private VideoView mVideo;
+    private ListView mVideoListView;
+    private VideoListAdapter mVideoAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,25 +56,28 @@ public class PlayVideoActivity extends BaseActivity {
 
         setContentView(R.layout.activity_play_video);
         mVideo = (VideoView) findViewById(R.id.video);
+        mVideoListView = findViewById(R.id.video_list);
 
         // Example of a call to a native method
         findViewById(R.id.play_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playMusic();
+                playVideo();
             }
         });
 
         findViewById(R.id.stop_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopMusic();
+                stopVideo();
             }
         });
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_PERMISSION_CODE);
         }
+
+        initAdapter();
     }
 
     @Override
@@ -77,9 +88,74 @@ public class PlayVideoActivity extends BaseActivity {
                 Toast.makeText(this, "申请的权限为：" + permissions[i] + ",申请结果：" + grantResults[i], Toast.LENGTH_SHORT).show();
             }
         }
+        initAdapter();
     }
 
-    public void playMusic() {
+    private void initAdapter(){
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            if(mVideoAdapter == null) {
+                mVideoAdapter = new VideoListAdapter(this);
+                mVideoListView.setAdapter(mVideoAdapter);
+
+                mVideoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if(mVideoAdapter != null) {
+                            VideoItem videoItem = mVideoAdapter.getVideoItem(position);
+                            if(videoItem != null) {
+                                playVideo(videoItem.videoPath);
+                            }
+                        }
+                    }
+                });
+            } else {
+                mVideoAdapter.notifyDataSetChanged();
+            }
+
+            initVideoData();
+        }
+    }
+
+    private void initVideoData() {
+        List<VideoItem> videoItemList = new ArrayList<>();
+        String[] projection = new String[]{MediaStore.Video.Media.DATA, MediaStore.Video.Media
+                .DURATION, MediaStore.Video.Media.TITLE};
+        Cursor cursor = getContentResolver().query(
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI, projection, null,
+                null, null);
+        try {
+            if(cursor != null && cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    String path = cursor
+                            .getString(cursor
+                                    .getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
+                    long duration = cursor
+                            .getInt(cursor
+                                    .getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
+                    String title = cursor
+                            .getString(cursor
+                                    .getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));
+
+                    VideoItem videoItem = new VideoItem();
+                    videoItem.duration = duration;
+                    videoItem.title = title;
+                    videoItem.videoPath = path;
+
+                    videoItemList.add(videoItem);
+                }
+            }
+        } finally {
+            if(cursor != null) {
+                cursor.close();
+            }
+        }
+
+        mVideoAdapter.setVideoItems(videoItemList);
+        mVideoAdapter.notifyDataSetChanged();
+    }
+
+    public void playVideo() {
         String dir = Environment.getExternalStorageDirectory().getAbsolutePath();
         String path = dir + File.separator + "MuFan.mp4";
 
@@ -91,9 +167,16 @@ public class PlayVideoActivity extends BaseActivity {
         }
     }
 
-    public void stopMusic() {
 
+    public void playVideo(String path) {
+        String output = new File(Environment.getExternalStorageDirectory(), "Output.pcm").getAbsolutePath();
+
+        Toast.makeText(this, "path = " + path, Toast.LENGTH_SHORT).show();
+        if (new File(path).exists()) {
+            playVideo(path, mVideo.getHolder().getSurface(), output);
+        }
     }
+
 
     /**
      * A native method that is implemented by the 'native-lib' native library,
