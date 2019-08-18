@@ -53,6 +53,7 @@ public class NavUtil {
     }
 
     public static void doIntent(Intent intent) {
-
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        sContext.startActivity(intent);
     }
 }

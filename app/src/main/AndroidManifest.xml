@@ -33,6 +33,11 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="com.charles.action.custom.gradient" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.SurfaceActivity">
+            <intent-filter>
+                <action android:name="com.charles.action.surface" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
