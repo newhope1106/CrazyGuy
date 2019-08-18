@@ -35,9 +35,16 @@ public class MenuFake {
         menuItem = new MenuItem();
         menuItem.title = "自定义渐变";
         menuItem.action = Action.ACTION_VIEW_CUSTOM_GRADIENT;
+        menuItems.add(menuItem);
 
+        menuItem = new MenuItem();
         menuItem.title = "Surface使用";
         menuItem.action = Action.ACTION_VIEW_SURFACE;
+        menuItems.add(menuItem);
+
+        menuItem = new MenuItem();
+        menuItem.title = "播放视频";
+        menuItem.action = Action.ACTION_PLAY_VIDEO;
         menuItems.add(menuItem);
 
         return menuItems;

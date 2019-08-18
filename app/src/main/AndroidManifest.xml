@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.charles.crazyguy">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:name=".CrazyGuyApplication"
         android:allowBackup="true"
@@ -23,21 +26,22 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.SurfaceDemoActivity">
-            <intent-filter>
-                <action android:name="com.charles.action.surface" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <activity android:name=".activities.CustomGradientActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="com.charles.action.custom.gradient" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".activities.SurfaceActivity">
             <intent-filter>
                 <action android:name="com.charles.action.surface" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.PlayVideoActivity">
+            <intent-filter>
+                <action android:name="com.charles.action.playvideo" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

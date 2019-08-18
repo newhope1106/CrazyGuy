@@ -155,4 +155,9 @@ public class BeautyCircleTouchView extends SurfaceView implements Runnable, Surf
             mDrawHandler.post(this);
         }
     }
+
+    public void stopDraw() {
+        executorService.shutdown();
+        mDrawHandler.removeCallbacksAndMessages(null);
+    }
 }

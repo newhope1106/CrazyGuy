@@ -42,6 +42,11 @@ public class NavUtil {
                 startActivity(intent);
                 break;
             }
+            case Action.ACTION_PLAY_VIDEO:{
+                Intent intent = new Intent("com.charles.action.playvideo");
+                startActivity(intent);
+                break;
+            }
         }
     }
 

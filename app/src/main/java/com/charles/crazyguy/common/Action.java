@@ -16,4 +16,6 @@ public class Action {
     public static final String ACTION_VIEW_SURFACE = "action_view_surface";
     /**查看自定义渐变*/
     public static final String ACTION_VIEW_CUSTOM_GRADIENT = "action_view_custom_gradient";
+    /**播放视频*/
+    public static final String ACTION_PLAY_VIDEO = "action_play_videos";
 }
