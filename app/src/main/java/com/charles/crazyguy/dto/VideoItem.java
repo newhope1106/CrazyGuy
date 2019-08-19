@@ -18,4 +18,5 @@ public class VideoItem {
     public String title;
     public String videoPath;
     public long duration;
+    public String formatDuration;
 }

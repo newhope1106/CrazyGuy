@@ -19,6 +19,7 @@ import com.charles.crazyguy.R;
 
 import com.charles.crazyguy.adapter.VideoListAdapter;
 import com.charles.crazyguy.dto.VideoItem;
+import com.charles.crazyguy.util.CommonUtil;
 import com.charles.crazyguy.widget.VideoView;
 
 import java.io.File;
@@ -126,7 +127,8 @@ public class PlayVideoActivity extends BaseActivity {
                 null, null);
         try {
             if(cursor != null && cursor.getCount() > 0) {
-                while (cursor.moveToNext()) {
+                cursor.moveToFirst();
+                do{
                     String path = cursor
                             .getString(cursor
                                     .getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
@@ -141,9 +143,10 @@ public class PlayVideoActivity extends BaseActivity {
                     videoItem.duration = duration;
                     videoItem.title = title;
                     videoItem.videoPath = path;
+                    videoItem.formatDuration = CommonUtil.formatVideoTime(duration);
 
                     videoItemList.add(videoItem);
-                }
+                }while (cursor.moveToNext());
             }
         } finally {
             if(cursor != null) {

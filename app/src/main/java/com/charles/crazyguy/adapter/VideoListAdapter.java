@@ -84,7 +84,7 @@ public class VideoListAdapter extends BaseAdapter {
 
         VideoItem videoItem = mVideoItems.get(position);
         viewHolder.titleView.setText(videoItem.title);
-        viewHolder.durationView.setText("时长 : " + videoItem.duration + " ms");
+        viewHolder.durationView.setText("时长 : " + videoItem.formatDuration);
         return itemView;
     }
 

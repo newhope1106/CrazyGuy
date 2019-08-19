@@ -2,16 +2,19 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
     android:orientation="horizontal">
     <ImageView
         android:id="@+id/thumnail_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="80dp"
+        android:src="@drawable/default_series_img"
         android:scaleType="fitXY"/>
     <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp">
         <TextView
             android:id="@+id/title_view"
             android:layout_width="wrap_content"
